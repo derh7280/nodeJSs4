@@ -1,0 +1,21 @@
+servidor 
+npm install express -g
+npm install express
+
+seguidor de archivoss
+npm install --save-dev nodemon
+
+crear toda la estructura de un proyecto desde línea de
+comandos
+npm install express-generator -g
+
+crear proyecto victa pug
+express red-bicicletas --view=pug
+
+convertir html a pug
+https://html-to-pug.com
+
+
+
+ejecutar proyecto
+DEBUG=red-bicicletas:* npm run devstart

@@ -39,7 +39,7 @@ exports.bicicleta_update_post = function(req, res){
 }
 
 exports.bicicleta_delete_post = function(req, res){
-    bicicleta.removeById(req.body.id);
+    Bicicleta.removeById(req.body.id);
 
     res.redirect('/bicicletas');
 }

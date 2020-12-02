@@ -1,4 +1,4 @@
-var Bicicleta = function(id, color, modelo,ubicacion){
+var Bicicleta = function(id, color, modelo, ubicacion){
     this.id=id;
     this.color=color;
     this.modelo=modelo;
@@ -33,11 +33,10 @@ Bicicleta.removeById = function(aBiciId){
     }
 }
 
-
 var a = new Bicicleta(1, 'Rojo', 'Urbana', [6.277429, -75.5883129]);
 var b = new Bicicleta(2, 'Verde', 'Ruta', [6.2813667,-75.5845283]);
 
 Bicicleta.add(a);
 Bicicleta.add(b);
 
-module.export = Bicicleta;
+module.exports = Bicicleta;

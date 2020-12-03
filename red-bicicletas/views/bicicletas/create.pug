@@ -1,37 +1,40 @@
 extends ../layout
 
 block content
-    a(href='/bicicletas') Atras
-
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='/') RedBici
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href='/bicicletas') Ir a listado
+    .container
     br
     br
-    br
-
-    h1 Nueva Bicicleta
-
+    h3 Nueva Bicicleta
     br 
     br
-
     form(action='/bicicletas/create' method='POST')
         .form-row
             .form-group.col-md-2
                 label(for='id') ID:
-                input#id.form-control(type='text' name='id')
+                input#id.form-control(type='number' name='id' required='')
             .form-group.col-md-5
                 label(for='color') Color
-                input#color.form-control(type='text' name='color')  
+                input#color.form-control(type='text' name='color' required='')  
             .form-group.col-md-5
                 label(for='modelo') Modelo
                 //- select#modelo.form-control(name='modelo')
                 //-     option Urbana
                 //-     option Ruta
-                input#modelo.form-control(type='text' name='modelo')  
+                input#modelo.form-control(type='text' name='modelo' required='')  
         .form-row
             .form-group.col-md-6
                 label(for='lat') Latitud
-                input#lat.form-control(type='text' name='lat')
+                input#lat.form-control(type='text' name='lat' required='')
             .form-group.col-md-6
                 label(for='lng') Longitud
-                input#lng.form-control(type='lng' name='lng')
-        input.btn.btn-primary(type='submit' value='Crear')
+                input#lng.form-control(type='lng' name='lng' required='')
+        input.btn.btn-outline-primary(type='submit' value='Crear')
     

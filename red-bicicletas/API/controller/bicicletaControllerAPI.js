@@ -2,7 +2,7 @@ const { json } = require('express');
 var Bicicleta = require('../../models/bicicleta_model');
 
 exports.bicicleta_list = function(req, res){
-    res.status(200),json({
+    res.status(200).json({
         bicicletas: Bicicleta.allBicis
     });
 }

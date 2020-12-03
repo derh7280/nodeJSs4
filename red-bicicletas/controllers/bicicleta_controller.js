@@ -7,7 +7,7 @@ exports.bicicleta_list = function(req, res){
 exports.bicicleta_listByID = function(req, res){
     var bici = Bicicleta.findById(req.params.id);
     
-    res.render('bicicletas/view/', {bici});
+    res.render('bicicletas/view', {bici});
 }
 
 exports.bicicleta_create_get = function(req, res){
@@ -25,7 +25,7 @@ exports.bicicleta_create_post = function(req, res){
 exports.bicicleta_update_get = function(req, res){
     var bici = Bicicleta.findById(req.params.id);
     
-    res.render('bicicletas/update/', {bici});
+    res.render('bicicletas/update', {bici});
 }
 
 exports.bicicleta_update_post = function(req, res){

@@ -22,9 +22,10 @@ block content
             input#color.form-control(type='text' name='color')  
         .form-group.col-md-5
             label(for='modelo') Modelo
-            select#modelo.form-control(name='modelo')
-                option Urbana
-                option Ruta
+            //- select#modelo.form-control(name='modelo')
+            //-     option Urbana
+            //-     option Ruta
+            input#modelo.form-control(type='text' name='modelo')  
     .form-row
         .form-group.col-md-6
             label(for='lat') Latitud
@@ -33,4 +34,5 @@ block content
             label(for='lng') Longitud
             input#lng.form-control(type='lng' name='lng')
 
-    submit.btn.btn-primary(value='Crear') Crear
+    input.btn.btn-primary(type='submit' value='Crear')
+    

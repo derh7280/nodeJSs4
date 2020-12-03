@@ -16,20 +16,6 @@ block content
             th(scope='col') 
             th(scope='col') 
         tbody
-            //- each bici in [{id:1, color:'Rojo', modelo:'Urbana', ubicacion:[6.277429, -75.5883129]},{id:2, color:'Verde', modelo:'Ruta', ubicacion:[6.2813667,-75.5845283]}]
-            //-   tr
-            //-   th(scope='row')= bici.id
-            //-   td= bici.color
-            //-   td= bici.modelo
-            //-   td= bici.ubicacion
-            //-   td
-            //-     a(href= '/bicicletas/' + bici.id + '/view') Ver
-            //-   td
-            //-     a(href= '/bicicletas/' + bici.id + '/update') Editar
-            //-   td
-            //-     form.inline(method='post' action='bicicletas/' + bici.id + '/delete')
-            //-     input#id.form-control(type="hidden" name='id' value=bici.id) 
-            //-     button.link-button.btn-danger(type='submit' name='submit_param' value='Eliminar' class='btn')= 'Eliminar'
             each bici in bicis
               tr
               th(scope='row')= bici.id
@@ -37,10 +23,10 @@ block content
               td= bici.modelo
               td= bici.ubicacion 
               td
-                a(href= '/bicicletas/' + bici.id + '/view') Ver
+                a(href='bicicletas/' + bici.id + '/view') Ver
               td
-                a(href= '/bicicletas/' + bici.id + '/update') Editar
+                a(href='bicicletas/' + bici.id + '/update') Editar
               td
                 form.inline(method='post' action='bicicletas/' + bici.id + '/delete')
-                input#id.form-control(type="hidden" name='id' value=bici.id) 
-                button.link-button.btn-danger(type='submit' name='submit_param' value='Eliminar' class='btn')= 'Eliminar'
+                input#id.form-control(type="hidden" name='id' value= bici.id) 
+                button.link-button.btn-danger(type='submit' name='submit_param' value='submit_param' class='btn')= 'Eliminar'

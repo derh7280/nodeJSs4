@@ -21,7 +21,7 @@ Bicicleta.findById = function(aBiciId){
     else
         throw new Error(`No existe bicicleta con el id ${aBiciId}`);
 }
-
+ 
 Bicicleta.removeById = function(aBiciId){
     // var aBici = Bicicleta.findById(aBiciId);
     for(var i = 0; i< Bicicleta.allBicis.length; i++)

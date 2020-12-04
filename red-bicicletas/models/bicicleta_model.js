@@ -33,6 +33,20 @@ Bicicleta.removeById = function(aBiciId){
     }
 }
 
+Bicicleta.updateById = function(aBiciId, color, modelo, lat, lng){
+    // var aBici = Bicicleta.findById(aBiciId);
+    for(var i = 0; i< Bicicleta.allBicis.length; i++)
+    {
+        if (Bicicleta.allBicis[i].id===aBiciId){
+            Bicicleta.allBicis[i].id=aBiciId;
+            Bicicleta.allBicis[i].color=color;
+            Bicicleta.allBicis[i].modelo=modelo;
+            Bicicleta.allBicis[i].ubicacion=[lat,lng];
+            break;
+        }
+    }
+}
+
 // var a = new Bicicleta(1, 'Rojo', 'Urbana', [6.229688, -75.5870112]);
 // var b = new Bicicleta(2, 'Verde', 'Ruta', [6.208685, -75.5850117]);
 

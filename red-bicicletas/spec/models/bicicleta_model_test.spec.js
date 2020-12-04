@@ -46,4 +46,5 @@ describe("Bicicleta.allBicis", function() {
       var targetBici = Bicicleta.removeById(2);
       expect(aBici.id).toBe(2);
     });
+    
   });

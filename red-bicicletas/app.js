@@ -11,6 +11,8 @@ var bicicletasAPIRouter = require('./API/routes/bicicletas');
 
 var app = express();
 
+var mongoDB = require('./ConfigMongoDB');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

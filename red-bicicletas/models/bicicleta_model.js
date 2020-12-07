@@ -39,7 +39,7 @@ bicicletaSchema.statics.findByCode = function(aCode, cb){
 }
 
 bicicletaSchema.statics.findById = function(aId, cb){
-    return this.find({"_id" : ObjectId(aId)}, cb);
+    return this.find({"_id" : aId}, cb);
 }
 
 //ELIMINAR BICICLETA BY CODE

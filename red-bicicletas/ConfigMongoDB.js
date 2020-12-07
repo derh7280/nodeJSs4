@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost/red_bicicletas', {useNewUrlParser: true, u
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB error de conexión:'));
-db.once('open', function() {
-    console.log('Conectado a MongoDB');
- // estamos conectados!
-});
+// db.once('open', function() {
+//    // console.log('Conectado a MongoDB');
+//  // estamos conectados!
+// });

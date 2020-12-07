@@ -6,23 +6,24 @@ describe("Testing Bicicletas", function() {
   console.log("TESTEANDO BICICLETAS...");
   var originalTimeout;
   originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-  beforeEach(function(){
+  beforeEach(function(done){
       jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
       mongoose.connect('mongodb://localhost/red_bicicletas', {useNewUrlParser: true, useUnifiedTopology: true});
       const db = mongoose.connection;
       db.on('error', console.error.bind(console, 'MongoDB error de conexión en test db'));
       db.once('open', function() {
         console.log('Estas conectado a la base de datos de test');
-        //done();
+        done();
       }); 
   });
 
   //borrar toda la coleccion 
-  afterEach(function(){ 
+  afterEach(function(done){ 
     Bicicleta.deleteMany({}, function(err, success){
         if(err) console.log(err);
         jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-        //done();
+        mongoose.disconnect();        
+        done();
     });
   });
     

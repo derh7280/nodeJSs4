@@ -8,7 +8,7 @@ describe("Testing Usuarios", function() {
     console.log("TESTEANDO USUARIOS...");
     var originalTimeout;
     originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-    beforeEach(function(){
+    beforeEach(function(done){
         jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
         // var mongoDB = "mongodb://localhost/test-red-bicicletas-mongo";
         mongoose.connect('mongodb://localhost/red_bicicletas', {useNewUrlParser: true, useUnifiedTopology: true});
@@ -16,12 +16,12 @@ describe("Testing Usuarios", function() {
         db.on('error', console.error.bind(console, 'MongoDB error de conexión en test db'));
         db.once('open', function() {
             console.log('Estas conectado a la base de datos de test');
-            //done();
+            done();
         });   
     });
 
     //borrar toda la coleccion 
-    afterEach(function(){ 
+    afterEach(function(done){ 
         Reserva.deleteMany({}, function(err, success){
             if(err) console.log(err);
             Usuario.deleteMany({} ,function(err, success){
@@ -29,7 +29,8 @@ describe("Testing Usuarios", function() {
                 Usuario.deleteMany({} ,function(err, success){
                     if(err) console.log(err);
                     jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-                    //done();  
+                    mongoose.disconnect();  
+                    done();  
                 });
             });
         });

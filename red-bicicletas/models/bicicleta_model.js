@@ -52,6 +52,26 @@ bicicletaSchema.statics.removeById = function(aId, cb){
     return this.deleteOne({"_id" : aId}, cb );
 }
 
+bicicletaSchema.statics.updateById = function(aId, code, color, modelo, ubicacion){
+    // try {
+    //     db.restaurant.updateOne(
+    //        { "name" : "Central Perk Cafe" },
+    //        { $set: { "violations" : 3 } }
+    //     );
+    //  } catch (e) {
+    //     print(e);
+    //  }
+
+   return this.updateOne(
+        {"_id" : aId},
+        [
+            {
+                $set: { code: code, color: color, modelo: modelo, ubicacion: ubicacion }
+            }
+        ]
+     );
+}
+
 module.exports = mongoose.model('Bicicleta', bicicletaSchema);
 
 

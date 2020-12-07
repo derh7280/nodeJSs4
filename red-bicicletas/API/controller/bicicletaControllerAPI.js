@@ -30,24 +30,22 @@ exports.bicicleta_delete = function(req, res){
     });
 };
  
-// exports.bicicleta_update = function(req, res){
-//     var biciId = req.body._id;
-//     Bicicleta.find({"_id" : biciId} , function(err, bicicletas){
-//         Bicicleta.updateById(biciId, req.body, function(err){
-//             res.status(200).json({
-//                 bicicletas:bicicletas
-//             });
-//         });
-//     });
-    
-//     if (bici){
-//         var bici2 = new Bicicleta({color: req.body.color, modelo: req.body.modelo, ubicacion: [req.body.lat, req.body.lng]});
-//         res.status(200).json({
-//             bicicleta:bici2
-//         });
-//     }
-    
-// };
+exports.bicicleta_update = function(req, res){
+    var biciId = req.body._id;
+    Bicicleta.find({"_id" : biciId} , function(err, bicicletas){
+        // Bicicleta.updateById(biciId, req.body.code, req.body.color, req.body.modelo, [req.body.lat, req.body.lng] , function(err, bicicletas){
+        //     res.status(200).json({
+        //         bicicletas:bicicletas
+        //     });
+        //     // bicicletas.save(function(err){
+        //     //     res.status(200).json({bicicletas:bicicletas});  
+        //     // });
+        // });
+        Bicicleta.updateOne({"_id" : biciId}, [{ $set: { code: req.body.code, color: req.body.color, modelo: req.body.modelo, ubicacion: [req.body.lat, req.body.lng]}}], function(err, bicicletas){
+            res.status(200).json({bicicletas:bicicletas});  
+        });
+    });     
+};
 
 /*
 //sin bd

@@ -1,6 +1,6 @@
 "use strict";
 const nodemailer = require("nodemailer");
-let testAccount = require('./email');
+let testAccount = require('./configethereal');
 
 // async..await is not allowed in global scope, must use a wrapper
 async function main() {

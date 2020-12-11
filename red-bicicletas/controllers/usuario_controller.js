@@ -22,14 +22,20 @@ exports.usuario_create_get = function(req, res, next){
 
 exports.usuario_create_post = function(req, res, next){
     if (req.body.password != req.boy.confirm_password){
-        res.render('usuarios/creat', { errors: {confirm_password:{ message: 'No coinciden las claves'}}});
+        res.render('usuarios/create', { errors: {confirm_password:{ message: 'No coinciden los password ingresados'}}});
         return;
     }
     // var usuario= new Usuario(req.body.id, req.body.color, req.body.modelo);
     // bici.ubicacion = [req.body.lat, req.body.lng];
     // usuario.add(usuario);
     Usuario.create({nombre: req.body.nombre, email: req.body.email, password: req.body.password, confirm_password: req.body.confirm_password});
-    res.redirect('/usuarios');
+    if(err){
+        res.render('usuarios/create', { errors: err.errors, usuario: new Usuario()});
+        // return;
+    }else{
+        // nuevoUsuario.eviar_email_bienvenida();
+        res.redirect('/usuarios');
+    }
 }
 
 exports.usuario_update_get = function(req, res, next){
@@ -40,17 +46,25 @@ exports.usuario_update_get = function(req, res, next){
 
 exports.usuario_update_post = function(req, res, next){
     var update_values = {nombre: req.body.nombre};
-    Usuario.findByIdUpdate(req.params.id, update_values);
-    bici.id = req.body.id;
-    bici.color = req.body.color;
-    bici.modelo =  req.body.modelo;
-    bici.ubicacion = [req.body.lat, req.body.lng];
-
-    res.redirect('/usuarios');
+    //metodo de mongo que busca y actualiza
+    Usuario.findByIdUpdate(req.params.id, update_values, function(err, usuario){
+        if (err){
+            console.log(err);
+            res.render('usuarios/update', {errors: err.errors, usuario: new Usuario({nombre: req.body.nombre, email:req.body.email})});
+        }else {
+            res.redirect('/usuarios'); 
+            return;
+        }
+    });
 }
 
 exports.usuario_delete_post = function(req, res){
-    usuario.removeById(req.body.id);
-
-    res.redirect('/usuarios');
+    usuario.removeById();
+    Usuario.findAndDelete(req.body.id, function(err){
+        if(err){
+           next(err);     
+        }else{
+            res.redirect('/usuarios');
+        }
+    });
 }

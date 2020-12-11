@@ -1,0 +1,49 @@
+extends ../layout
+
+block content
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='/') RedBici
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href='/usuarios/create') Nuevo usuario
+        form.form-inline.my-2.my-lg-0
+          input.form-control.mr-sm-2(type='search' placeholder='Buscar ' aria-label='Buscar')
+          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Buscar
+    .container
+    br
+    br
+    h3.mx-auto.my-0.text-uppercase.text-center LISTADO USUARIOS
+    br
+    br
+    //- LIST
+    section#listado.text-center
+      .container
+        .row
+          table.table.table-striped
+            thead.thead-dark
+                tr
+                th(scope='col') #
+                th(scope='col') Nombre
+                th(scope='col') Email
+                th(scope='col') verificado
+                th(scope='col') 
+                th(scope='col') 
+                th(scope='col') 
+            tbody
+                each bici in bicis
+                  tr
+                  th.align-middle(scope='row')= bici.id
+                  td.align-middle= bici.color
+                  td.align-middle= bici.modelo
+                  td.align-middle= bici.ubicacion 
+                  td.align-middle
+                    a.btn.btn-outline-primary(href='usuarios/' + bici.id + '/view') Ver
+                  td.align-middle
+                    a.btn.btn-outline-success(href='usuarios/' + bici.id + '/update') Editar
+                  td.align-middle
+                    form.inline(method='post' action='usuarios/' + bici.id + '/delete')
+                      input#id.form-control(type="hidden" name='id' value= bici.id) 
+                      input.link-button.btn.btn-outline-danger(type='submit' name='submit_param' value='Eliminar')

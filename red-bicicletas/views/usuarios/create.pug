@@ -1,0 +1,45 @@
+extends ../layout
+
+block content
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='/') RedBici
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href='/usuarios') Ir a listado
+    .container
+    br
+    br
+    h3 Nuevo usuario
+    br 
+    br
+    form(action='/usuarios/create' method='POST')
+        .form-row
+            .form-group.col-md-2
+                label(for='id') ID:
+                input#id.form-control(type='number' name='id')
+            .form-group.col-md-5
+                label(for='nombre') nombre
+                input#nombre.form-control(type='text' name='nombre' value= usuario.nombre class= errors.nombre ? 'is-invalid' : '' required='') 
+                if errors.nombre
+                    small#nombreHelp.text-danger= errors.nombre.message
+            .form-group.col-md-5
+                label(for='email') email
+                input#email.form-control(type='email' name='email' value= usuario.email class= errors.email ? 'is-invalid' : '' required='') 
+                if errors.email 
+                    small#emailHelp.text-danger= errors.email.message 
+        .form-row
+            .form-group.col-md-6
+                label(for='password') Password
+                input#password.form-control(type='password' name='password' class=errors.password ? 'is-invalid' : '' required='')
+                 if errors.password 
+                    small#passwordHelp.text-danger= errors.email.message 
+            .form-group.col-md-6
+                label(for='confirm_password') Confirmar password
+                input#confirm_pasword.form-control(type='password' name='confirm_password' class= errors.confirm_password ? 'is-invalid' : '' required='')
+                if errors.confirm_password
+                    small#confirm_passwordHelp.text-danger= errors.confirm_password.message 
+        input.btn.btn-outline-primary(type='submit' value='Crear')
+    

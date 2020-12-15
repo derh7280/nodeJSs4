@@ -2,7 +2,7 @@
 var mongoose = require('mongoose');
 // var mongoDB ='mongodb://localhost/red-bicicletas';
 //mongoose.connect('mongodb://localhost/red-bicicletas');
-mongoose.connect('mongodb://localhost:27017/red_bicicletas', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://localhost:27017/red-bicicletas-derh', {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB error de conexión:'));

@@ -3,17 +3,46 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var passport = require('./config/passport');
+var session = require('express-session');
+// const jwt = require('jsonwebtoken');
+
+// models
+const Usuario = require('./models/usuario_model');
+const Token = require('./models/token');
 
 var indexRouter = require('./routes/index');
-var usuariosRouter = require('./routes/usuarios');
-var tokenRouter = require('./routes/token');
+var usersRouter = require('./routes/users');
 var bicicletasRouter = require('./routes/bicicletas');
 var bicicletasAPIRouter = require('./API/routes/bicicletas');
 var usuariosAPIRouter = require('./API/routes/usuarios');
+var usuariosRouter = require('./routes/usuarios');
+var tokenRouter = require('./routes/token');
+
+const store = new session.MemoryStore;
 
 var app = express();
 
-var mongoDB = require('./ConfigMongoDB');
+// app.set('secretKey', 'jwt_pwd_!!223344');
+
+app.use(session({
+  cookie: {maxAge: 240 * 60 * 60 * 1000},
+  store: store,
+  saveUninitialized: true,
+  resave: true,
+  secret: 'dukington_n0d0_20!20.*!kingston+down'
+})); 
+
+// var mongoDB = require('./ConfigMongoDB');
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/red-bicicletas-derh';
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.Promise = global.Promise;
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB error de conexión:'));
+db.once('open', function() {
+   console.log('Conectado a MongoDB');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,15 +52,95 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/users', usersRouter);
+// app.use('/bicicletas', bicicletasRouter);
+app.use('/bicicletas',loggedIn, bicicletasRouter);
+app.use('/api/bicicletas', bicicletasAPIRouter);
+app.use('/api/usuarios', usuariosAPIRouter);
 app.use('/usuarios', usuariosRouter);
 app.use('/token', tokenRouter);
 
-app.use('/bicicletas', bicicletasRouter);
-app.use('/api/bicicletas', bicicletasAPIRouter);
-app.use('/api/usuarios', usuariosAPIRouter);
+//Rutas manejadas desde app.js
+app.get('/login', (req, res)=>{
+  res.render('login/login');
+});
+
+app.post('/login', (req, res, next)=> {
+  //Metodo de Passport
+  passport.authenticate('local', function(err, usuario, info){
+    //Se inicia si hay errores
+    if(err) return next(err);
+    //Se inicia si hay errores
+    if(!usuario) return res.render('login/login', {info});
+    req.logIn(usuario, function(err){
+      if(err) return next(err);
+      //Si todo esta bien retorna a la pagina principal
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
+
+app.get('/logout', function(req, res){
+  req.logOut();//Limpia la sesion
+  res.redirect('/');
+});
+
+
+app.get('/forgotPassword', function(req, res){
+  res.render('login/forgotPassword');
+});
+
+app.post('/forgotPassword', function (req, res, next) {
+  Usuario.findOne({ email: req.body.email }, function (err, usuario) {
+    if (!usuario) {
+      return res.render('login/forgotPassword', {
+        info: { message: 'No existe un usuario con el email ingresado' } 
+      });
+    }
+
+    usuario.resetPassword(function (err) {
+      if (err) {
+        return next(err);
+        console.log('login/forgotPasswordMsn');
+      }
+    });
+
+    res.render('login/forgotPasswordMsn');
+  });
+});
+
+app.get('/resetPassword/:token', function(req, res, next){
+  Token.findOne({token: req.params.token}, function(err, token){
+    if(!token) return res.status(400).send({type: 'not-verified', msg: 'No existe un usuario asociado al token. Verifique que su token no haya expirado'})
+
+    Usuario.findById(token._userId, function(err, usuario){
+      if(!usuario) return res.status(400).send({msg: 'No existe un usuario asociado al token'});
+      res.render('login/resetPassword', {errors: {}, usuario: usuario})
+    })
+  })
+})
+
+app.post('/resetPassword', function(req, res){
+  if(req.body.password != req.body.confirm_password) {
+    res.render('login/resetPassword', {errors: {confirm_password: {message: 'No coinciden las contraseñas'}}});
+    return;
+  }
+  Usuario.findOne({'email': req.body.email}, function(err, usuario){
+    usuario.password = req.body.password;
+    usuario.save(err=>{
+      if(err){
+        res.render('login/resetPassword', {errors: err.errors, usuario: new Usuario});
+      } else {
+        res.redirect('/login')
+      }
+    })
+  })
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -48,5 +157,14 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+function loggedIn(req, res, next){
+	if(req.user){
+		next();
+	}else{
+		console.log('Usuario sin loguearse');
+		res.redirect('/login');
+	}
+};
 
 module.exports = app;

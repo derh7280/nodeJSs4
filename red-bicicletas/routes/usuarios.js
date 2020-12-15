@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var usuarioController = require ('../controllers/usuarios_controller');
+var usuarioController = require ('../controllers/usuario_controller');
 
 router.get('/', usuarioController.usuario_list);
 router.get('/:id/view', usuarioController.usuario_listByID);

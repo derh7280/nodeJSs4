@@ -17,10 +17,10 @@ block content
     br
     form(action=`/usuarios/${usuario.id}/update` method='POST')
         .form-row
-            .form-group.col-md-2
+            .form-group.col-md-3
                 label(for='id') ID:
-                input#id.form-control(type='number' name='id')
-            .form-group.col-md-5
+                input#id.form-control(type='text' name='id' value= usuario.id disabled='')
+            .form-group.col-md-9
                 label(for='nombre') nombre
                 input#nombre.form-control(type='text' name='nombre' value= usuario.nombre class= errors.nombre ? 'is-invalid' : '' required='') 
                 if errors.nombre

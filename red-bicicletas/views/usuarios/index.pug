@@ -28,22 +28,22 @@ block content
                 th(scope='col') #
                 th(scope='col') Nombre
                 th(scope='col') Email
-                th(scope='col') verificado
+                //- th(scope='col') verificado
                 th(scope='col') 
                 th(scope='col') 
                 th(scope='col') 
             tbody
-                each bici in bicis
+                each usuario in usuarios
                   tr
-                  th.align-middle(scope='row')= bici.id
-                  td.align-middle= bici.color
-                  td.align-middle= bici.modelo
-                  td.align-middle= bici.ubicacion 
+                  th.align-middle(scope='row')= usuario.id
+                  td.align-middle= usuario.nombre
+                  td.align-middle= usuario.email
+                  //- td.align-middle= usuario.verificado ? 'SI' : 'NO'
                   td.align-middle
-                    a.btn.btn-outline-primary(href='usuarios/' + bici.id + '/view') Ver
+                    a.btn.btn-outline-primary(href='usuarios/' + usuario.id + '/view') Ver
                   td.align-middle
-                    a.btn.btn-outline-success(href='usuarios/' + bici.id + '/update') Editar
+                    a.btn.btn-outline-success(href='usuarios/' + usuario.id + '/update') Editar
                   td.align-middle
-                    form.inline(method='post' action='usuarios/' + bici.id + '/delete')
-                      input#id.form-control(type="hidden" name='id' value= bici.id) 
+                    form.inline(method='post' action='usuarios/' + usuario.id + '/delete')
+                      input#id.form-control(type="hidden" name='id' value= usuario.id) 
                       input.link-button.btn.btn-outline-danger(type='submit' name='submit_param' value='Eliminar')

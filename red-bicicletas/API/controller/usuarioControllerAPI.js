@@ -1,4 +1,4 @@
-var Usuario = require('../../models/usuario');
+var Usuario = require('../../models/usuario_model');
 
 exports.usuarios_list = function(req, res){
     Usuario.find({} , function(err, usuarios){

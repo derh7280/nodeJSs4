@@ -15,25 +15,25 @@ block content
     h3 Actualizando Bicicleta
     br 
     br
-    form(action=`/bicicletas/${bici.id}/update` method='post')
+    form(action=`/bicicletas/${bicicleta.id}/update` method='post')
         .form-row
-            .form-group.col-md-2
+            .form-group.col-md-3
                 label(for='id') ID:
-                input#id.form-control(type='number' name='id' value=bici.id required='')
+                input#id.form-control(type='text' name='id' value= bicicleta.id required='' disabled='')
             .form-group.col-md-5
                 label(for='color') Color
-                input#color.form-control(type='text' name='color' value=bici.color required='')  
-            .form-group.col-md-5
+                input#color.form-control(type='text' name='color' value= bicicleta.color required='')  
+            .form-group.col-md-4
                 label(for='modelo') Modelo
                 //- select#modelo.form-control(name='modelo')
                 //-     option Urbana
                 //-     option Ruta
-                input#modelo.form-control(type='text' name='modelo' value=bici.modelo required='')  
+                input#modelo.form-control(type='text' name='modelo' value= bicicleta.modelo required='')  
         .form-row
             .form-group.col-md-6
                 label(for='lat') Latitud
-                input#lat.form-control(type='text' name='lat' value=bici.ubicacion[0] required='')
+                input#lat.form-control(type='lat' name='lat' value= bicicleta.ubicacion[0] required='')
             .form-group.col-md-6
                 label(for='lng') Longitud
-                input#lng.form-control(type='lng' name='lng' value=bici.ubicacion[0] required='')
+                input#lng.form-control(type='lng' name='lng' value= bicicleta.ubicacion[1] required='')
         input.btn.btn-outline-primary(type='submit' value='Actualizar')

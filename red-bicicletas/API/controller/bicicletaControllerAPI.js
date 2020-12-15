@@ -41,7 +41,7 @@ exports.bicicleta_update = function(req, res){
         //     //     res.status(200).json({bicicletas:bicicletas});  
         //     // });
         // });
-        Bicicleta.updateOne({"_id" : biciId}, [{ $set: { code: req.body.code, color: req.body.color, modelo: req.body.modelo, ubicacion: [req.body.lat, req.body.lng]}}], function(err, bicicletas){
+        Bicicleta.updateOne({"_id" : biciId}, [{ $set: { color: req.body.color, modelo: req.body.modelo, ubicacion: [req.body.lat, req.body.lng]}}], function(err, bicicletas){
             res.status(200).json({bicicletas:bicicletas});  
         });
     });     

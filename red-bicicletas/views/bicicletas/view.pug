@@ -18,22 +18,19 @@ block content
 
     form
     .form-row
-        .form-group.col-md-2
+        .form-group.col-md-3
             label(for='id') ID:
-            input#id.form-control(type='text' name='id' value=bici.id disabled='')
+            input#id.form-control(type='text' name='id' value= bicicleta.id disabled='')
         .form-group.col-md-5
             label(for='color') Color
-            input#color.form-control(type='text' name='color' value=bici.color disabled='')  
-        .form-group.col-md-5
+            input#color.form-control(type='text' name='color' value= bicicleta.color disabled='')  
+        .form-group.col-md-4
             label(for='modelo') Modelo
-            //- select#modelo.form-control(name='modelo')
-            //-     option Urbana
-            //-     option Ruta
-            input#modelo.form-control(type='text' name='modelo' value=bici.modelo disabled='')  
+            input#modelo.form-control(type='text' name='modelo' value= bicicleta.modelo disabled='')  
     .form-row
         .form-group.col-md-6
             label(for='lat') Latitud
-            input#lat.form-control(type='text' name='lat' value=bici.ubicacion[0] disabled='')
+            input#lat.form-control(type='text' name='lat' value= bicicleta.ubicacion[0] disabled='')
         .form-group.col-md-6
             label(for='lng') Longitud
-            input#lng.form-control(type='lng' name='lng' value=bici.ubicacion[0] disabled='')
+            input#lng.form-control(type='text' name='lng' value= bicicleta.ubicacion[1] disabled='')

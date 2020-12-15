@@ -17,13 +17,13 @@ block content
     br
     form(action='/bicicletas/create' method='POST')
         .form-row
-            .form-group.col-md-2
-                label(for='id') ID:
-                input#id.form-control(type='number' name='id' required='')
-            .form-group.col-md-5
+            //- .form-group.col-md-2
+            //-     label(for='id') ID:
+            //-     input#id.form-control(type='text' name='id')
+            .form-group.col-md-6
                 label(for='color') Color
                 input#color.form-control(type='text' name='color' required='')  
-            .form-group.col-md-5
+            .form-group.col-md-6
                 label(for='modelo') Modelo
                 //- select#modelo.form-control(name='modelo')
                 //-     option Urbana
@@ -35,6 +35,6 @@ block content
                 input#lat.form-control(type='text' name='lat' required='')
             .form-group.col-md-6
                 label(for='lng') Longitud
-                input#lng.form-control(type='lng' name='lng' required='')
+                input#lng.form-control(type='text' name='lng' required='')
         input.btn.btn-outline-primary(type='submit' value='Crear')
     

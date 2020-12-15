@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-// var Schema = mongoose.Schema;
-var bicicletaSchema = new mongoose.Schema({
-    code: Number,
+var Schema = mongoose.Schema;
+var bicicletaSchema = new Schema({
+    // code: Number,
     color: String,
     modelo: String,
     ubicacion: {
@@ -10,9 +10,9 @@ var bicicletaSchema = new mongoose.Schema({
 });
 
 //CREAR BICICLETA POR INSTANCIA
-bicicletaSchema.statics.createInstance = function(code, color, modelo, ubicacion){
+bicicletaSchema.statics.createInstance = function(color, modelo, ubicacion){
     return new this({
-        code: code,
+        // code: code,
         color: color,
         modelo: modelo,
         ubicacion: ubicacion
@@ -20,12 +20,13 @@ bicicletaSchema.statics.createInstance = function(code, color, modelo, ubicacion
 };
 
 bicicletaSchema.methods.toString = function(){
-    return 'code: ' + this.code + ' color: '+ this.color;
+    //return 'code: ' + this.code + ' color: '+ this.color;
+    return 'id: ' + this._id + ' | color: '+ this.color;
 }
 
 //CONSULTAR TODAS LAS BICICLETA
 bicicletaSchema.statics.allBicis = function(cb){
-    return this.find({}, cb);//filtro de json vacio
+    return this.find({}, cb);
 }
 
 //AGREGAR BICICLETA
@@ -35,24 +36,25 @@ bicicletaSchema.statics.add = function(aBici, cb){
 
 //CONSULTAR BICICLETA BY CODE
 bicicletaSchema.statics.findByCode = function(aCode, cb){
-    return this.findOne({code: aCode}, cb);
+    return this.findOne({'_id': aCode}, cb);
 }
 
-bicicletaSchema.statics.findById = function(aId, cb){
-    return this.find({"_id" : aId}, cb);
-}
+// bicicletaSchema.statics.findById = function(aId, cb){
+//     return this.find({"_id" : aId}, cb);
+// }
 
 //ELIMINAR BICICLETA BY CODE
-bicicletaSchema.statics.removeByCode = function(aCode, cb){
-    return this.deleteOne({code: aCode}, cb);
-    //return this.deleteOne( { "_id" : ObjectId(aCode) }, cb );
-}
+// bicicletaSchema.statics.removeByCode = function(aCode, cb){
+//     return this.deleteOne({code: aCode}, cb);
+//     //return this.deleteOne( { "_id" : ObjectId(aCode) }, cb );
+// }
 
-bicicletaSchema.statics.removeById = function(aId, cb){
+bicicletaSchema.statics.removeByCode = function(aId, cb){
     return this.deleteOne({"_id" : aId}, cb );
 }
 
-bicicletaSchema.statics.updateById = function(aId, code, color, modelo, ubicacion){
+// bicicletaSchema.statics.updateById = function(aId, code, color, modelo, ubicacion){
+bicicletaSchema.statics.updateById = function(aId, color, modelo, ubicacion){
     // try {
     //     db.restaurant.updateOne(
     //        { "name" : "Central Perk Cafe" },
@@ -66,7 +68,8 @@ bicicletaSchema.statics.updateById = function(aId, code, color, modelo, ubicacio
         {"_id" : aId},
         [
             {
-                $set: { code: code, color: color, modelo: modelo, ubicacion: ubicacion }
+                // $set: { code: code, color: color, modelo: modelo, ubicacion: ubicacion }
+                $set: { color: color, modelo: modelo, ubicacion: ubicacion }
             }
         ]
      );

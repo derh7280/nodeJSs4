@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      a.navbar-brand(href='/') RedBici
+      button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarSupportedContent' aria-controls='navbarSupportedContent' aria-expanded='false' aria-label='Toggle navigation')
+        span.navbar-toggler-icon
+      #navbarSupportedContent.collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href='/usuarios') Ir a listado
+    .container
+    br
+    br
+    h3 Vizualizando usuario
+    br 
+    br
+    form
+        .form-row
+            .form-group.col-md-3
+                label(for='id') ID:
+                input#id.form-control(type='text' name='id' value= usuario.id disabled='')
+            .form-group.col-md-4
+                label(for='nombre') nombre
+                input#nombre.form-control(type='text' name='nombre' value= usuario.nombre class= errors.nombre ? 'is-invalid' : '' disabled='') 
+                if errors.nombre
+                    small#nombreHelp.text-danger= errors.nombre.message
+            .form-group.col-md-5
+                label(for='email') email
+                input#email.form-control(type='email' name='email' value= usuario.email class= errors.email ? 'is-invalid' : '' disabled='') 
+                if errors.email 
+                    small#emailHelp.text-danger= errors.email.message 
+        .form-row
+            .form-group.col-md-2
+                label(for='verificado') Verificado
+                input#password.form-control(type='text' name='verificado' value= usuario.verificado ? 'SI' : 'NO' class=errors.verificado ? 'is-invalid' : '' disabled='')
+                if errors.verificado
+                    small#verificadoHelp.text-danger= errors.verificado.message 
+            .form-group.col-md-10
+                label(for='password') Password
+                input#pasword.form-control(type='password' name='password' value= usuario.password class= errors.confirm_password ? 'is-invalid' : '' disabled='')
+                if errors.password
+                    small#passwordHelp.text-danger= errors.password.message 

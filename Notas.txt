@@ -19,3 +19,16 @@ https://html-to-pug.com
 
 ejecutar proyecto
 DEBUG=red-bicicletas:* npm run devstart
+
+
+heroku
+
+heroku git: remoto -a red-bicicletas-derh
+git add.
+git commit -am "hacerlo mejor"
+
+subir cambios a heroku
+git push heroku master
+
+abrir proyecto
+heroku open

@@ -32,3 +32,25 @@ git push heroku master
 
 abrir proyecto
 heroku open
+
+admin
+sOJnXka8QbXlANyJ
+
+sendgrid
+Webccddmm
+api
+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
+
+
+http://localhost:5000/api/usuarios/create
+{
+    "nombre": "derh7280",
+    "email": "derh7280@hotmail.com",
+    "password": "12345"
+}
+
+{
+    "nombre": "test",
+    "email": "test@redbicicletas.com",
+    "password": "test"
+}

@@ -1,3 +1,4 @@
+require('dotenv').config();//libreria para trabajar con variables de ambiente
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -20,7 +21,26 @@ var usuariosRouter = require('./routes/usuarios');
 var tokenRouter = require('./routes/token');
 var authAPIRouter = require('./API/routes/auth');
 
-const store = new session.MemoryStore;
+//const store = new session.MemoryStore;
+const MongoDBStore = require('connect-mongodb-session')(session);
+
+// Session (desarrollo) / en bd (prod)
+let store;
+
+if (process.env.NODE_ENV === 'development') {
+  store = session.MemoryStore();
+}else {
+  store = new MongoDBStore({
+    uri: process.env.MONGO_URI,
+    collection: 'sessions'
+  });
+
+  store.on('error', function (err) {
+    assert.ifError(err);
+    assert.ok(false);
+  });
+}
+
 
 var app = express();
 
@@ -37,7 +57,10 @@ app.use(session({
 
 // var mongoDB = require('./ConfigMongoDB');
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://localhost:27017/red-bicicletas-derh';
+// var mongoDB = 'mongodb://localhost:27017/red-bicicletas-derh';
+// var mongoDB = 'mongodb+srv://admin:sOJnXka8QbXlANyJ@cluster0.px3vo.mongodb.net/test'; //contra mongo comp
+// var mongoDB = 'mongodb+srv://admin:sOJnXka8QbXlANyJ@cluster0.px3vo.mongodb.net/<dbname>?retryWrites=true&w=majority';//contra la app
+var mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.Promise = global.Promise;
 var db = mongoose.connection;

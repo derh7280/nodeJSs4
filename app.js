@@ -92,6 +92,10 @@ app.use('/usuarios', usuariosRouter);
 app.use('/token', tokenRouter);
 app.use('/api/auth', authAPIRouter);
 
+app.use('/privacy_policy', function(req, res){
+  res.sendFile('public/privacy_policy.html');
+});
+
 //Rutas manejadas desde app.js
 app.get('/login', (req, res)=>{
   res.render('login/login');

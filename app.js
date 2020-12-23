@@ -96,6 +96,10 @@ app.use('/privacy_policy', function(req, res){
   res.sendFile('public/privacy_policy.html');
 });
 
+app.use('/google89971a2f4629312d', function(req, res){
+  res.sendFile('public/google89971a2f4629312d.html');
+});
+
 //Rutas manejadas desde app.js
 app.get('/login', (req, res)=>{
   res.render('login/login');

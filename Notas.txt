@@ -58,3 +58,8 @@ http://localhost:5000/api/usuarios/create
 
 example
 https://bitbucket.org/Mbarakaja2020/red_bicicletas/src/master/
+
+
+797670293281-60halh0o5ul8r94c8npborfitdkr7cug.apps.googleusercontent.com
+
+2oSuMJD8qiQ6VM1W_cL9OhmD

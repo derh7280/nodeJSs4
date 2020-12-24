@@ -117,4 +117,78 @@ usuarioSchema.methods.resetPassword = function(cb) {
     });
 }
 
+usuarioSchema.statics.findOneOrCreateByGoogle = function findOneOrCreate(condition, callback) {
+    const self = this;
+    console.log(condition);
+    this.findOne({
+        $or: [
+            { 'googleId': condition.id },
+            { 'email': condition.emails[0].value }
+        ]
+    }, 
+    (err, result) => {
+        if (result) {//login
+            callback(err, result);
+        } else {//registro
+            console.log('=============== CONDITION ===============');
+            console.log(condition);
+            let values = {};
+            values.googleId = condition.id;
+            values.email = condition.emails[0].value;
+            values.nombre = condition.displayName || 'SIN NOMBRE';
+            values.verificado = true;
+            //values.password = condition._json.etag;
+            values.password = crypto.randomBytes(16).toString('hex');
+
+            console.log('=============== VALUES ===============');
+            console.log(values);
+            self.create(values, function (err, user) {
+                if (err) {
+                    console.log(err);
+                }
+
+                return callback(err, user);
+            });
+        }
+    });
+}
+
+usuarioSchema.statics.findOneOrCreateByFacebook = function findOneOrCreate(condition, callback) {
+    const self = this;
+    console.log(condition);
+
+    this.findOne({
+        $or: [
+            { 'facebookId': condition.id },
+            { 'email': condition.emails[0].value }
+        ]
+    }, 
+    (err, result) => {
+        if (result) {
+            callback(err, result);
+        } else {
+            let values = {};
+            console.log('=============== CONDITION ===============');
+            console.log(condition);
+
+            values.facebookId = condition.id;
+            values.email = condition.emails[0].value;
+            values.nombre = condition.displayName || 'SIN NOMBRE';
+            values.verificado = true;
+            values.password = crypto.randomBytes(16).toString('hex');
+
+            console.log('=============== VALUES ===============');
+            console.log(values);
+
+            self.create(values, function (err, user) {
+                if (err) {
+                    console.log(err);
+                }
+
+                return callback(err, user);
+            });
+        }
+    });
+}
+
 module.exports = mongoose.model('Usuario', usuarioSchema);

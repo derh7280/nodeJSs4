@@ -1,4 +1,5 @@
 require('dotenv').config();//libreria para trabajar con variables de ambiente
+require('newrelic');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -28,7 +29,7 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 let store;
 
 if (process.env.NODE_ENV === 'development') {
-  store = session.MemoryStore();
+  store = new session.MemoryStore();
 }else {
   store = new MongoDBStore({
     uri: process.env.MONGO_URI,
@@ -99,6 +100,21 @@ app.use('/privacy_policy', function(req, res){
 app.use('/google89971a2f4629312d', function(req, res){
   res.sendFile('public/google89971a2f4629312d.html');
 });
+
+app.get('/auth/google',
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read',
+    ] 
+  })
+);
+
+app.get('/auth/google/callback', passport.authenticate('google', {
+    successRedirect: '/',
+    failureRedirect: '/error'
+  })
+);
 
 //Rutas manejadas desde app.js
 app.get('/login', (req, res)=>{

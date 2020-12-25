@@ -105,7 +105,9 @@ app.get('/auth/google',
   passport.authenticate('google', {
     scope: [
       'https://www.googleapis.com/auth/plus.login',
-      'https://www.googleapis.com/auth/plus.profile.emails.read',
+      //'https://www.googleapis.com/auth/plus.profile.emails.read',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile'
     ] 
   })
 );
@@ -115,6 +117,25 @@ app.get('/auth/google/callback', passport.authenticate('google', {
     failureRedirect: '/error'
   })
 );
+
+// app.get(
+//   "/auth/facebook",
+//   passport.authenticate("google", {
+//     scope: [
+//       'https://www.googleapis.com/auth/plus.login',
+//       'https://www.googleapis.com/auth/userinfo.email',
+//       'https://www.googleapis.com/auth/userinfo.profile',
+//     ],
+//   })
+// );
+
+// app.get(
+//   "/auth/facebook/callback",
+//   passport.authenticate("facebook", {
+//     successRedirect: "/",
+//     failureRedirect: "/login",
+//   })
+// );
 
 //Rutas manejadas desde app.js
 app.get('/login', (req, res)=>{

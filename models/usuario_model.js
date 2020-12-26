@@ -47,7 +47,9 @@ var usuarioSchema = new Schema({
     verificado:{
         type: Boolean,
         default: false
-    }
+    },
+    googleId: String,
+    facebookId: String
 
 });
 

@@ -1,5 +1,5 @@
 require('dotenv').config();//libreria para trabajar con variables de ambiente
-// require('newrelic');
+require('newrelic');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');

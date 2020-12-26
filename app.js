@@ -118,24 +118,24 @@ app.get('/auth/google/callback', passport.authenticate('google', {
   })
 );
 
-// app.get(
-//   "/auth/facebook",
-//   passport.authenticate("google", {
-//     scope: [
-//       'https://www.googleapis.com/auth/plus.login',
-//       'https://www.googleapis.com/auth/userinfo.email',
-//       'https://www.googleapis.com/auth/userinfo.profile',
-//     ],
-//   })
-// );
+app.get(
+  "/auth/facebook",
+  passport.authenticate("google", {
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/userinfo.email',
+      'https://www.googleapis.com/auth/userinfo.profile',
+    ],
+  })
+);
 
-// app.get(
-//   "/auth/facebook/callback",
-//   passport.authenticate("facebook", {
-//     successRedirect: "/",
-//     failureRedirect: "/login",
-//   })
-// );
+app.get(
+  "/auth/facebook/callback",
+  passport.authenticate("facebook", {
+    successRedirect: "/",
+    failureRedirect: "/login",
+  })
+);
 
 //Rutas manejadas desde app.js
 app.get('/login', (req, res)=>{
